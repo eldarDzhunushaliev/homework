@@ -23,3 +23,4 @@ personalMovieDB.movies[lastMovie] = lastScore;
 console.log(personalMovieDB);
 
 //test comment#2
+// test comment#3
