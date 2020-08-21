@@ -1,0 +1,17 @@
+git init                                                    |Инициализация репозитория в рабочей папке
+git status                                                  |Статус данного репозитория
+git add -A(or <foo.bar>)                                    |Добавить файлы в индекс
+git commit -a(or <foo.bar>) -m "comment"                    |Закоммитить файлы в индексе
+git log                                                     |Лог текущей ветки
+git log --all                                               |Весь лог
+git remote add origin <URL>                                 |Связать репозиторий с гитхабом
+git push -u origin master                                   |Запушить репозиторий на гитхаб и установить настройки по умолчанию
+git push                                                    |Запушить репозиторий
+git pull                                                    |Запулить репозиторий
+git checkout <key>                                          |Перейти к коммиту
+git clone <URL> <Folder>                                    |Скачать репозиторий в папку
+git reflog                                                  |Лог действий гита
+git reset HEAD@{<index>}                                    |Откатиться к действию
+git commit --amend | esc | :x! - exit                       |Поправить коммент последнего коммита
+git log --all --decorate --oneline --graph                  |Графическое представление лога
+git commit --amend --no-edit                                |Сохранить в последний коммит
