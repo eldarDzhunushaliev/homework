@@ -3,7 +3,7 @@
 let numberOfFilms,
     lastMovie,
     lastScore,
-    inputGenre,
+    inputGenres,
     correctInput;
 
 const personalMovieDB = {
@@ -11,76 +11,96 @@ const personalMovieDB = {
     movies: {},
     actors: {},
     genres: [],
-    private: false
-};    
+    public: false,
 
-function start() {
-    personalMovieDB.private = confirm('Do you want your data base to be private?');
-    do {
-        numberOfFilms = prompt('How many films have you watched?', '');
-        correctInput = !isNaN(numberOfFilms) && numberOfFilms != null && numberOfFilms != '';
-        if (!correctInput) {
-            alert('Incorrect input. Repeat, please.');
+    changePrivacyPolicy: function() {
+        this.public = confirm('Do you want your database to be public?');
+    },
+
+    countFilms: function() {
+        do {
+            numberOfFilms = prompt('How many films have you watched?', '');
+            correctInput = !isNaN(numberOfFilms) && numberOfFilms != null && numberOfFilms != '';
+            if (!correctInput) {
+                alert(numberOfFilms);
+                console.log(numberOfFilms);
+            }
+        } while (!correctInput);
+        this.count = +numberOfFilms;
+    },
+
+    rateUser: function() {
+        if (this.count < 10) {
+            alert("You've seen few films");
+        } else if (this.count < 30) {
+            alert("You are an average customer");
+        } else {
+            alert("Oh, you're an expirienced one");
         }
-    } while (!correctInput);
-    personalMovieDB.count = +numberOfFilms;
-    rateUser();
-}
+    },
 
-start();
+    //inheretation doesn't work properly with 2-leveled objects
+    askRecentMovies: function() {
+        // this.movies = this.movies;
 
-function rateUser() {
-    if (personalMovieDB.count < 10) {
-        alert("You've seen few films");
-    } else if (personalMovieDB.count < 30) {
-        alert("You are an average customer");
-    } else {
-        alert("Oh, you're an expirienced one");
-    }
-}
+        for (let i = 0; i < 2; i++) {
+            do {
+                lastMovie = prompt('Call one of the last movies you seen', '');
+                correctInput = lastMovie != null && lastMovie != '' && lastMovie.length < 50;
+                if (!correctInput) {
+                    alert('Incorrect input. Repeat, please.');
+                }
+            } while (!correctInput);
+            do {
+                lastScore = prompt('How do you rate it?', '');
+                correctInput = !isNaN(lastScore) && lastScore != null && lastScore != '';
+                if (!correctInput) {
+                    alert('Incorrect input. Repeat, please.');
+                }
+            } while (!correctInput);
 
-function askRecentMovies() {
-    for (let i = 0; i < 2; i++) {
+            this.movies[lastMovie] = +lastScore;
+        }
+    },
+
+    //inheretation doesn't work properly with 2-leveled objects
+    writeYourGenres: function() {
+        // this.genres = this.genres;
+
         do {
-            lastMovie = prompt('Call one of the last movies you seen', '');
-            correctInput = lastMovie != null && lastMovie != '' && lastMovie.length < 50;
+            inputGenres = prompt(`Enter your favourite genres comma separated`, '');
+            correctInput = inputGenres != null && inputGenres != '';
             if (!correctInput) {
                 alert('Incorrect input. Repeat, please.');
             }
         } while (!correctInput);
-        do {
-            lastScore = prompt('How do you rate it?', '');
-            correctInput = !isNaN(lastScore) && lastScore != null && lastScore != '';
-            if (!correctInput) {
-                alert('Incorrect input. Repeat, please.');
-            }
-        } while (!correctInput);
-        personalMovieDB.movies[lastMovie] = +lastScore;
+        
+        this.genres = inputGenres.split(', ');
+        personalMovieDB.genres.sort();
+        
+        this.genres.forEach((item, i, arr) => {
+            console.log(`Your favourite genre №${i + 1} is ${item}!`);
+        });
+    },
+
+    showDB: function(ispublic) {
+        if (ispublic) {
+            console.log(this);
+        }
     }
-}
+};
 
-askRecentMovies();
+// personalMovieDB.countFilms();
+// personalMovieDB.rateUser();
+// personalMovieDB.askRecentMovies();
+// personalMovieDB.writeYourGenres();
+// personalMovieDB.changePrivacyPolicy();
+// personalMovieDB.showDB(personalMovieDB.public);
 
-function writeYourGenres() {
-    for (let i = 0; i < 3; i++) {
-        do {
-            inputGenre = prompt(`What is your favourite genre №${i+1}?`, '');
-            correctInput = inputGenre != null && inputGenre != '' && inputGenre.length < 50;
-            if (!correctInput) {
-                alert('Incorrect input. Repeat, please.');
-            }
-        } while (!correctInput);
-
-        personalMovieDB.genres[i] = inputGenre;
-    }
-}
-
-writeYourGenres();
-
-function showMyDB(isprivate) {
-    if (!isprivate) {
-        console.log(personalMovieDB);
-    }
-}
-
-showMyDB(personalMovieDB.private);
+// const elDB = Object.create(personalMovieDB);
+// elDB.countFilms();
+// elDB.rateUser();
+// elDB.askRecentMovies();
+// elDB.writeYourGenres();
+// elDB.changePrivacyPolicy();
+// elDB.showDB(elDB.public);
