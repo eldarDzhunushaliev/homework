@@ -42,3 +42,16 @@ elementName.innerHTML = '<tagName>HTMLcode</tagName>';
 elementName.textContent = 'Some text';
 
 elementName.insertAdjacentHTML('before/afterbegin/end', '<tagName>HTMLcode</tagName>');
+
+document.documentElement;
+document.head;
+        .body;
+
+elementName.childNodes;
+           .firstChild;      .firstElementChild;
+           .lastChild;       .lastElementChild;
+           .parentNode;      .parentElement;
+           .nextSibling;     .nextElementSibling;
+           .previousSibling; .previousElementSibling;
+
+
